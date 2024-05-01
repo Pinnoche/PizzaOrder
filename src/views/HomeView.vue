@@ -10,9 +10,10 @@
     <RouterLink class="text-center font-semibold w-full rounded-md" to="/pizzas/create">Place Your Order Here!!!</RouterLink>
   </div>
   </div>
-  <div class="d-flex justify-content-center">
-    <p class="text-primary">{{  message }}</p>
-  </div>
+  <div class="flex justify-center mt-4 cursor-default">
+    <p class="text-blue-500 hover:shadow-md font-semibold hover:font-bold">{{ message }}</p>
+</div>
+
  </div>
 
  
