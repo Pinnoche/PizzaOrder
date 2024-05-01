@@ -1,14 +1,14 @@
 
 <template>
  <div>
-  <div class="container">
-    <h1 class="text-center">WELCOME FOR YOUR ORDER</h1>
+  <div class="container mx-auto">
+    <h1 class=" text-center font-bold text-xl hover:text-blue-400 my-10 cursor-default">WELCOME FOR YOUR ORDER</h1>
 
-    <img src='../assets/pizza.jpg' alt="Pizza" class="img-fluid img-thumbnail mx-auto rounded d-block mb-4 ">
+    <img src='../assets/pizza.jpg' alt="Pizza" class="mx-auto rounded mb-8 ">
 
-  <p class="w-100">
-    <RouterLink class="btn btn-primary text-center w-100" to="/pizzas/create">Place Your Order Here!!!</RouterLink>
-  </p>
+  <div class="w-full py-3 rounded-md border-1 flex justify-center items-center cursor-pointer hover:bg-blue-700 bg-blue-400">
+    <RouterLink class="text-center font-semibold w-full rounded-md" to="/pizzas/create">Place Your Order Here!!!</RouterLink>
+  </div>
   </div>
   <div class="d-flex justify-content-center">
     <p class="text-primary">{{  message }}</p>
@@ -18,20 +18,25 @@
  
 
 </template>
-<script>
-export default {
-  name: 'HomeView',
+<script setup>
+  import { useRouter } from 'vue-router'; 
+  import {ref, onMounted} from 'vue';
+  import { useAuthStore } from '@/stores/auth';
+  import axios from 'axios';
 
-  created() {
-      this.message = this.$route.query.message;
+    const router = useRouter();
+    const authStore = useAuthStore();
+ 
+    const message = router.currentRoute.value.query.message || '';
 
-  },
-  data(){
-    return {
-      message: ''
+    onMounted( () => {
+       authStore.getUser();
+      //  console.log(authStore.authUser);
+      // console.log(data.data);
+      // data.data = authStore.user;
+      // console.log(authStore.user);
+    });
+  
 
-    }
-  }
-}
 
 </script>

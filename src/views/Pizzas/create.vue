@@ -1,116 +1,93 @@
 <template>
     <div>
-    <h1 class=" mb-lg-5 text-center text-primary">Fill Your Pizza Order Form</h1>
+        <h1 class="mb-8 text-3xl text-center text-gray-800 font-semibold">Order Your Pizza Here!!!</h1>
 
-    <form class="row g-4 w-100 needs-validation" @submit.prevent="savePizza">
+        <form class="grid grid-cols-1 gap-6 max-w-lg mx-auto" @submit.prevent="savePizza">
 
-<div class="container-fluid float-center bg-dark text-white rounded w-50">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-    <div class="col-12 mb-2">
-        <label for="fullName" class="form-label">Full name</label>
-        <input v-model="model.pizza.name" type="text" class="form-control" id="fullName" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-        <div class="invalid-feedback">
-            Please enter your full name.
-        </div>
-    </div>
-
-    <div class="col-md-4 mb-2">
-        <label for="pizzaType" class="form-label">Your Pizza Type</label>
-        <select v-model="model.pizza.type" name="type" class="form-select" id="pizzaType" aria-label="Default select example" required>
-            <option selected disabled value="">Select Your Type</option>
-            <option value="European">European</option>
-            <option value="Hawaiian">Hawaiian</option>
-            <option value="Mexican">Mexican</option>
-        </select>
-        <div class="invalid-feedback">
-            Please select your pizza type.
-        </div>
-    </div>
-
-    <div class="col-md-4 mb-2">
-        <label for="pizzaBase" class="form-label">Your Pizza Base</label>
-        <select v-model="model.pizza.base" name="base" class="form-select" id="pizzaBase" aria-label="Default select example" required>
-            <option selected disabled value="">Select Your Base</option>
-            <option value="Double Sausage">Double Sausage</option>
-            <option value="Pepper and Onions">Pepper and Onions</option>
-            <option value="Single Sausage">Single Sausage</option>
-        </select>
-        <div class="invalid-feedback">
-            Please select your pizza base.
-        </div>
-    </div>
-
-    <div class="col-12 mb-2">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="agreeCheck" required>
-            <label class="form-check-label" for="agreeCheck">
-                Agree to terms and conditions
-            </label>
-            <div class="invalid-feedback">
-                You must agree before submitting.
+            <div class="bg-gray-100 rounded-lg p-6">
+                <label for="fullName" class="block mb-2 text-gray-800 font-semibold">Full name</label>
+                <input v-model="data.pizza.name" type="text" class="w-full px-4 py-2 rounded-md bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="fullName" required>
             </div>
-        </div>
+
+            <div class="bg-gray-100 rounded-lg p-6">
+                <label for="pizzaType" class="block mb-2 text-gray-800 font-semibold">Your Pizza Type</label>
+                <select v-model="data.pizza.type" name="type" class="w-full px-4 py-2 rounded-md bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="pizzaType" required>
+                    <option selected disabled value="">Select Your Type</option>
+                    <option value="European">European</option>
+                    <option value="Hawaiian">Hawaiian</option>
+                    <option value="Mexican">Mexican</option>
+                </select>
+            </div>
+
+            <div class="bg-gray-100 rounded-lg p-6">
+                <label for="pizzaBase" class="block mb-2 text-gray-800 font-semibold">Your Pizza Base</label>
+                <select v-model="data.pizza.base" name="base" class="w-full px-4 py-2 rounded-md bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" id="pizzaBase" required>
+                    <option selected disabled value="">Select Your Base</option>
+                    <option value="Double Sausage">Double Sausage</option>
+                    <option value="Pepper and Onions">Pepper and Onions</option>
+                    <option value="Single Sausage">Single Sausage</option>
+                </select>
+            </div>
+
+            <div class="bg-gray-100 rounded-lg p-6">
+                <div class="flex items-center mb-2">
+                    <input class="form-checkbox rounded text-blue-500" type="checkbox" id="agreeCheck" required>
+                    <label class="ml-2 text-gray-800" for="agreeCheck">Agree to terms and conditions</label>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 rounded-lg p-6">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md" type="submit">Submit Order</button>
+            </div>
+
+        </form>
+
     </div>
-
-    <div class="col-12 mb-4">
-        <button class="btn btn-primary" type="submit">Submit Order</button>
-    </div>
-
-</div>
-
-</form>
-
-</div>
 </template>
 
-<script>
+
+<script setup>
+import { useRouter } from 'vue-router';
+import Cookies from 'universal-cookie';
 import axios from 'axios'
 
-    export default {
-        name: 'PizzaCreate',
-        data(){
-            return { 
-                model: {
+const router = useRouter();
+const cookies = new Cookies();
+
+      const data = {
+                csrfToken: cookies.get('XSRF-TOKEN'),
+                
                     pizza: {
                         name: '',
                         type: '',
                         base: ''
                     }
-                }
                 
-            }
-        },
+            };
    
 
-        methods: {
+      
             
-           async savePizza(){
+           const savePizza = async () => {
                 try {
-                    await axios.post('http://pizza_api.test/api/pizzas', this.model.pizza);
+                    await axios.post('/api/pizzas', data.pizza, {
+                headers:{
+                    'X-XSRF-TOKEN' : data.csrfToken
+                }
+               });
                     console.log('everything is fine in this block');
-                    this.$router.push({ path: '/', query: { message: 'Thank you Customer, See you again!!!' } });
+                    router.push({ path: '/', query: { message: 'Thank you Customer, See you again!!!' } });
                 } catch (error) {
                     console.log(error)
                     console.log('problem with the request')
-                }
+                }   
 
-
-               
-
-                    
-
-                this.model.pizza = {
+                data.pizza = {
                         name: '',
                         type: '',
                         base: ''
                     }
                     
-                }
-            }
-
-    }
+                };
     
 </script>

@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PizzaView from '../views/Pizzas/index.vue'
 import PizzaCreate from '../views/Pizzas/create.vue'
-import AuthLogin from '../views/Auth/Login.vue'
-import AuthReg from '../views/Auth/Register.vue'
+import Login from '../components/Login.vue'
+import Register from '../components/Register.vue'
 
 
 const router = createRouter({
@@ -17,9 +17,7 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      
       component: () => import('../views/AboutView.vue')
     },
     {
@@ -33,14 +31,14 @@ const router = createRouter({
       component: PizzaCreate
     },
     {
-      path: '/auth/login',
-      name: 'auth_login',
-      component: AuthLogin
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
-      path: '/auth/register',
-      name: 'auth_reg',
-      component: AuthReg
+      path: '/register',
+      name: 'register',
+      component: Register
     }
   ]
 })

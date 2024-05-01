@@ -1,79 +1,51 @@
 <template>
-    <div>
-      <h1>Pizza Orders</h1>
-      <div v-if="this.pizzas.length > 0">
-        <ul v-for="(pizza, index) in this.pizzas" :key="index" class="list-group list-group-flush mb-4 ">
-        <li class="list-group-item">{{ pizza.name}}</li>
-        <li class="list-group-item">{{ pizza.type }}</li>
-        <li class="list-group-item">{{ pizza.base }}</li>
-        <li class="list-group-item disabled">{{ pizza.created_at}}</li>
-        <button type="button" class="btn btn-danger col-sm-2 float-sm-end mt-2" @click="deleteOrder(pizza.id)">Complete Order</button>
-      </ul>
+  <section class="p-10">
+      <h1 class="text-xl md:text-3xl font-semibold mb-8 text-center">Pizza Orders</h1>
       
+      <div v-if="pizzas.length > 0">
+          <div v-for="(pizza, index) in pizzas" :key="index" class="bg-gray-100 rounded-lg p-6 mx-auto mb-8 max-w-sm md:max-w-2xl">
+              <h2 class="text-xl font-semibold mb-2"><span class="font-semibold">Customer:   </span>{{ pizza.name }}</h2>
+              <p class="text-gray-700 mb-2"><span class="font-semibold">Type:</span> {{ pizza.type }}</p>
+              <p class="text-gray-700 mb-2"><span class="font-semibold">Base:</span> {{ pizza.base }}</p>
+              <p class="text-gray-500"><span class="font-semibold">Created at:</span> {{ pizza.created_at }}</p>
+              <button @click="countStore.deleteOrder(pizza.id)" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg mt-4">Complete Order</button>
+          </div>
       </div>
-
+      
       <div v-else>
-        <p class=" text-danger">Loading.....</p>
-      </div>
-      
+          <p class="text-red-500">Loading.....</p>
+      </div>  
+  </section>
+</template>
 
-    </div>
-  </template>
-
-<script>
-
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useCountStore } from '@/stores/count';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
+const router = useRouter();
+const countStore = useCountStore();
 
-export default{
-    name:'PizzaView',
-    data(){
-        return {
-            pizzas: [],
-            // created_at: '2024-04-17T14:51:55.000000Z'
-            
-        }
-    },
-    mounted(){
-        this.getPizzas();
-        
-    },
-  //   computed: {
-  //   formattedCreatedAt() {
-  //     // Convert createdAt to a Date object
-  //     const date = new Date(this.pizza.created_at);
+const pizzas= ref([]);
 
-  //     // Format the createdAt date using date-fns
-  //     return format(date, "MMMM dd, yyyy, hh:mm:ss a");
-  //   }
-  // },
-
-
-
-    methods:{
-       async getPizzas(){      
-           const res= await axios.get('http://pizza_api.test/api/pizzas')
-            
-                this.pizzas = res.data.pizzas
-            
-        },
-
-        async deleteOrder(pizzaId){
-          try {
-      
-            if(confirm('Are you sure, you want to complete the order?')){
+const getPizzas = async () => { 
+            try {
+              const res= await axios.get('/api/pizzas')
+              console.log(res.data.pizzas);
+              pizzas.value = res.data.pizzas;
+                  
+                  
+            } catch (error) {
+              if(error.response && error.response.status == 401){
+                router.push('/login');
+              } else{
+                console.error('Error fetching pizzas:', error)
+              }
               
-             await axios.delete(`http://pizza_api.test/api/pizzas/${pizzaId}/delete`)
-            }
-            console.log(res)
-          } catch (error) {
-            console.log(error)
-          }
+            }     
+                 
+              };
 
-          this.getPizzas();
-          
-        }
-    },
-}
+  onMounted(getPizzas);
 </script>
