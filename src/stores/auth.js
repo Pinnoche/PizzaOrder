@@ -26,6 +26,7 @@ export const useAuthStore = defineStore("auth", {
             await axios.post('/logout' 
             );
             this.authUser = null;
+            window.location.reload();
         }
     },
 

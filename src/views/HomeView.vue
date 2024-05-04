@@ -21,22 +21,13 @@
 </template>
 <script setup>
   import { useRouter } from 'vue-router'; 
-  import {ref, onMounted} from 'vue';
-  import { useAuthStore } from '@/stores/auth';
-  import axios from 'axios';
-
+  
     const router = useRouter();
-    const authStore = useAuthStore();
+    
  
     const message = router.currentRoute.value.query.message || '';
 
-    onMounted( () => {
-       authStore.getUser();
-      //  console.log(authStore.authUser);
-      // console.log(data.data);
-      // data.data = authStore.user;
-      // console.log(authStore.user);
-    });
+    
   
 
 
