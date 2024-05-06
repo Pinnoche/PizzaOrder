@@ -18,7 +18,7 @@
       </div>
       
       <div v-else>
-          <p class="text-red-500">Loading.....</p>
+          <p class="text-red-500">No Order Yet!!!</p>
       </div>
   </section>
   

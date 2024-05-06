@@ -6,7 +6,7 @@
 
     <img src='../assets/pizza.jpg' alt="Pizza" class="mx-auto rounded mb-8 ">
 
-  <div class="w-full py-3 rounded-md border-1 flex justify-center items-center cursor-pointer hover:bg-blue-700 bg-blue-400">
+  <div class="max-w-md sm:max-w-2xl md:max-w-3xl lg:max-w-full py-3 rounded-md flex cursor-pointer hover:bg-blue-700 bg-blue-400">
     <RouterLink class="text-center font-semibold w-full rounded-md" to="/pizzas/create">Place Your Order Here!!!</RouterLink>
   </div>
   </div>
@@ -20,7 +20,7 @@
 
 </template>
 <script setup>
-  import { useRouter } from 'vue-router'; 
+  import { useRouter } from 'vue-router';
   
     const router = useRouter();
     
