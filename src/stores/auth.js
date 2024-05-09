@@ -14,21 +14,11 @@ export const useAuthStore = defineStore("auth", {
     },
 
     actions: {
-        // get router() {
-        //     return this.$router;
-        // },
 
         async getUser(){
             const user = await axios.get('/api/user');
             this.authUser = user.data;
-        },
-
-        // async logOut(){
-        //     await axios.post('/logout' 
-        //     );
-        //     this.authUser = null;
-        //     window.location.reload();
-        // },     
+        }, 
     },
 
 });
