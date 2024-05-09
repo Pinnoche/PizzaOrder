@@ -1,11 +1,16 @@
 <script setup>
 import { onMounted } from 'vue';
+import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
 import { RouterLink, RouterView } from 'vue-router';
 import Nav from './components/Nav.vue';
 
 
   const authStore = useAuthStore();
+
+
+
+  
 
 
  onMounted( async () => {

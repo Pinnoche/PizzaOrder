@@ -19,7 +19,7 @@
               <RouterLink to="/register" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md">Register</RouterLink>
             </section>
             <section v-else class="cursor-pointer">
-              <a class="text-white hover:bg-gray-700 px-3 py-2 rounded-md" @click="authStore.logOut()">Logout</a>
+              <a class="text-white hover:bg-gray-700 px-3 py-2 rounded-md" @click="logOut">Logout</a>
             </section>
           </div>
           
@@ -46,7 +46,7 @@
               <RouterLink to="/register" class=" hover:bg-gray-700 block px-3 py-2 rounded-md">Register</RouterLink>
             </section>
             <section v-else class="cursor-pointer">
-              <a class="hover:bg-gray-700 block px-3 py-2 rounded-md">Logout</a>
+              <a class="hover:bg-gray-700 block px-3 py-2 rounded-md" @click="logOut">Logout</a>
             </section>
           </div>
         </div>
@@ -55,12 +55,13 @@
   </template>
   
  
-<script>
+<script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { useAuthStore } from '../stores/auth';
+// import { defineProps } from 'vue';
+import axios from 'axios';
 import { ref } from 'vue';
-export default {
-  setup() {
+
   
     const isMenuOpen = ref(false);
     const authStore = useAuthStore();
@@ -69,9 +70,18 @@ export default {
     const toggleMenu = () => {
       isMenuOpen.value = !isMenuOpen.value;
     };
+    // const props = defineProps({
+    //   data: {
+    //     type: Object,
+    //     required: true
+    //   }
+    // })
 
-    return { isMenuOpen, toggleMenu, authStore };
-  },
+    const logOut = async() =>{
+            await axios.post('/logout' 
+            );
+            authStore.authUser = null;
+            window.location.reload();
+        };
 
-};
 </script>
