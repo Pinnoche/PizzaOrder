@@ -1,9 +1,12 @@
 <template>
-    <form class="mt-8 shadow-md bg-white rounded-lg overflow-hidden max-w-sm sm:max-w-md md:max-w-lg mx-auto" @submit.prevent="login">
+    <form class="form" @submit.prevent="login">
     <div class="bg-gray-800 text-white py-3 px-6">
         <h2 class="text-2xl font-semibold">Login</h2>
     </div>
     <div class="p-6">
+        <div v-if="data.notification.value" class="success">
+            <span> Login Successful </span>
+        </div>
         <div class="mb-4">
             <label for="email" class="block text-gray-700 font-bold mb-2">Email:</label>
             <input v-model="data.form.email" type="email" id="email" class="w-full px-3 py-2 border rounded-md" >
@@ -21,11 +24,11 @@
             <label for="mycheckbox" class="text-gray-600">Remember Me</label>
         </div> -->
 
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+        <button type="submit" class="submitBtn">
             Login
         </button>
        
-        <!-- <RouterLink to="/" class="block text-blue-500 mt-4 text-sm">Forgot Your Password?</RouterLink> -->
+        <RouterLink to="/forgotPassword" class="block text-blue-500 mt-4 text-sm">Forgot Your Password?</RouterLink>
     </div>
 </form>
 
@@ -51,42 +54,35 @@ const cookies = new Cookies();
                     password: ''
                 },
                 errors: ref([]),
+                notification: ref(null)
             };
 
         
     
     
         const login = async () => {
+            data.errors.value = [];
             try {
-                // console.log(data.csrfToken);
-                
-                 await axios.post('/login', data.form, {
+                 const res = await axios.post('/login', data.form, {
                     headers: {
                         'X-XSRF-TOKEN': data.csrfToken
                     }
                 });
 
-                authStore.getUser();
-                
-            
-                // authStore.authUser = response.data;
-
-                // console.log(authStore.authUser);
-                
-                // Alert and navigate only after successfully updating authUser
-                alert('Login Successful');
-                router.push('/');
+                if(res.status === 204){
+                    data.notification.value = res.status;
+                    authStore.getUser();
+                }
+                setTimeout( () => {
+                    router.push('/');
+                }, 2000)
             } catch (error) {
                 if (error.response.status === 422) {
-                    // console.log(error.response)
                     data.errors.value = error.response.data.errors;
-                    // console.log(data.errors.value.email)
                 } else if (error.request) {
-                    // The request was made but no response was received
                     console.error('Network Error:', error.request);
                     alert('Network Error: Please check your internet connection');
                 } else {
-                    // Something else happened while setting up the request
                     console.error('Request Error:', error.message);
                     alert('An unexpected error occurred. Please try again later.');
                 }

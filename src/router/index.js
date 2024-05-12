@@ -4,6 +4,8 @@ import PizzaView from '../views/Pizzas/index.vue'
 import PizzaCreate from '../views/Pizzas/create.vue'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
+import ForgotPassword from '@/components/ForgotPassword.vue'
+import ResetPassword from '@/components/ResetPassword.vue'
 
 
 const router = createRouter({
@@ -39,6 +41,16 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/forgotPassword',
+      name: 'forgotPassword',
+      component: ForgotPassword
+    },
+    {
+      path: '/password-reset/:token',
+      name: 'resetPassword',
+      component: ResetPassword
     }
   ]
 })

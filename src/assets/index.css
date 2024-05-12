@@ -4,3 +4,15 @@
 @tailwind components;
 
 @tailwind utilities;
+
+
+.form {
+    @apply mt-8 shadow-md bg-white rounded-lg overflow-hidden max-w-sm sm:max-w-md md:max-w-lg mx-auto;
+};
+
+.success {
+    @apply bg-green-300 w-full rounded-lg flex justify-center items-center py-1 mb-2 text-green-700 font-bold;
+}
+.submitBtn {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md;
+}

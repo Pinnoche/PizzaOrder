@@ -1,6 +1,6 @@
 <template>
-<form @submit.prevent="signUp" class="mt-8 shadow-md bg-white rounded-lg overflow-hidden max-w-sm sm:max-w-md md:max-w-lg mx-auto">
-    <div class="bg-gray-800 text-white py-3 pl-6">
+<form @submit.prevent="signUp" class="form">
+    <div class="bg-gray-800 text-white py-3 px-6">
         <h2 class="text-2xl font-semibold">Sign Up</h2>
     </div>
     <div class="p-6">
@@ -23,13 +23,13 @@
         </div>
 
         <div class="mb-6">
-            <label for="c_password" class="block text-gray-700 font-bold mb-2">Confirm Password:</label>
-            <input v-model="data.form.c_password" type="password" id="c_password" class="w-full px-3 py-2 border rounded-md" >
-            <span v-if="data.errors.value.c_password" class="text-red-500"> {{ data.errors.value.c_password[0] }}</span>
+            <label for="Confirm_password" class="block text-gray-700 font-bold mb-2">Confirm Password:</label>
+            <input v-model="data.form.confirm_password" type="password" id="c_password" class="w-full px-3 py-2 border rounded-md" >
+            <span v-if="data.errors.value.confirm_password" class="text-red-500"> {{ data.errors.value.confirm_password[0] }}</span>
         </div>
 
         <div class="flex justify-center items-center">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+            <button type="submit" class="submitBtn">
                 Submit
             </button>
         </div>
@@ -53,7 +53,7 @@ const cookies = new Cookies();
                 username: '',
                 email: '',
                 password: '',
-                c_password: ''
+                confirm_password: ''
             },
             errors: ref([])
 
@@ -61,8 +61,8 @@ const cookies = new Cookies();
   
 
         const signUp = async () => {
+            data.errors.value = [];  
             try {
-                
               await axios.post('/register', data.form, {
                 headers:{
                     'X-XSRF-TOKEN' : data.csrfToken
