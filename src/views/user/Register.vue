@@ -27,12 +27,13 @@
             <input v-model="data.form.confirm_password" type="password" id="c_password" class="w-full px-3 py-2 border rounded-md" >
             <span v-if="data.errors.value.confirm_password" class="text-red-500"> {{ data.errors.value.confirm_password[0] }}</span>
         </div>
-
-        <div class="flex justify-center items-center">
-            <button type="submit" class="submitBtn">
-                Submit
-            </button>
-        </div>
+<div class="flex justify-between items-center">
+    <button type="submit" class="submitBtn">Submit</button>
+    <span class="text-blue-500 text-sm">
+        <RouterLink to="/login">Already A Member?</RouterLink>
+    </span>
+</div>
+           
     </div>
 </form>
 

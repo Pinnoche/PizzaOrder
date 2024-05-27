@@ -1,7 +1,7 @@
 <template>
     <form class="form" @submit.prevent="login">
-    <div class="bg-gray-800 text-white py-3 px-6">
-        <h2 class="text-2xl font-semibold">Login</h2>
+    <div class="bg-black text-white py-3 px-6">
+        <h2 class="text-2xl font-semibold">Admin Login</h2>
     </div>
     <div class="p-6">
         <div v-if="data.notification.value" class="success">
@@ -23,12 +23,14 @@
             <input type="checkbox" id="mycheckbox" name="checkbox" class="mr-2">
             <label for="mycheckbox" class="text-gray-600">Remember Me</label>
         </div> -->
-
-        <button type="submit" class="submitBtn">
-            Login
-        </button>
-       
-        <RouterLink to="/forgotPassword" class="block text-blue-500 mt-4 text-sm">Forgot Your Password?</RouterLink>
+        <div class="flex justify-between items-center">
+            <button type="submit" class="bg-gray-800 hover:bg-black text-white font-bold py-2 px-4 rounded-md">
+                Login
+            </button>
+           
+               <!-- <RouterLink to="/forgotPassword" class="block text-blue-500 mt-4 text-sm">Forgot Your Password?</RouterLink> -->
+        
+        </div>
     </div>
 </form>
 
@@ -63,7 +65,7 @@ const cookies = new Cookies();
         const login = async () => {
             data.errors.value = [];
             try {
-                 const res = await axios.post('/login', data.form, {
+                 const res = await axios.post('/admin/login', data.form, {
                     headers: {
                         'X-XSRF-TOKEN': data.csrfToken
                     }
@@ -71,10 +73,10 @@ const cookies = new Cookies();
 
                 if(res.status === 204){
                     data.notification.value = res.status;
-                    authStore.getUser();
+                    authStore.getAdmin();
                 }
                 setTimeout( () => {
-                    router.push('/');
+                    router.push('/admin');
                 }, 2000)
             } catch (error) {
                 if (error.response.status === 422) {

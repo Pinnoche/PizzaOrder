@@ -24,12 +24,12 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import Cookies from 'universal-cookie';
-// import { useCountStore } from '@/stores/count';
 import { format } from 'date-fns';
+
 
 const cookies = new Cookies();
 const router = useRouter();
-//  const countStore = useCountStore();
+
 
  const data = {
   pizzas: ref([]),
@@ -38,13 +38,11 @@ const router = useRouter();
 
  const getPizzas = async() => { 
                 try {
-                  const res = await axios.get('/api/pizzas')
-                  console.log(res.data.pizzas);
+                  const res = await axios.get('/api/pizzas');
                   data.pizzas.value = res.data.pizzas;
-                  // console.log(this.pizzas);                                           
                 } catch (error) {
                   if(error.response && error.response.status == 401){
-                    router.push('/login');
+                    router.push('/staff/login');
                   } else{
                     console.error('Error fetching pizzas:', error)
                   }
@@ -65,7 +63,6 @@ const router = useRouter();
 
     const deleteOrder = async(pizzaId) => {
                 try {
-            
                   if(confirm('Are you sure, you want to complete the order?')){
                     
                    await axios.delete(`/api/pizzas/${pizzaId}/delete`, {

@@ -1,11 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/Home.vue'
+import AdminView from '../views/admin/Admin.vue'
+import Welcome from '../views/user/Welcome.vue'
+import StaffView from '../views/staffs/StaffView.vue'
 import PizzaView from '../views/Pizzas/index.vue'
+import UserOrder from '../views/user/User_index.vue'
 import PizzaCreate from '../views/Pizzas/create.vue'
-import Login from '../components/Login.vue'
-import Register from '../components/Register.vue'
-import ForgotPassword from '@/components/ForgotPassword.vue'
-import ResetPassword from '@/components/ResetPassword.vue'
+import PizzaEdit from '../views/Pizzas/edit.vue'
+import Login from '../views/user/Login.vue'
+import S_Login from '../views/staffs/S_Login.vue'
+import A_Login from '../views/admin/A_Login.vue'
+import S_Register from '../views/admin/S_Register.vue'
+import Register from '../views/user/Register.vue'
+import ForgotPassword from '@/views/user/ForgotPassword.vue'
+import ResetPassword from '@/views/user/ResetPassword.vue'
 
 
 const router = createRouter({
@@ -14,7 +22,25 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {home: true}
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminView,
+      meta: {a_Nav: true}
+    },
+    {
+      path: '/welcome',
+      name: 'welcome',
+      component: Welcome
+    },
+    {
+      path: '/staff',
+      name: 'staffs',
+      component: StaffView,
+      meta: {s_Nav: true}
     },
     {
       path: '/about',
@@ -25,7 +51,13 @@ const router = createRouter({
     {
       path: '/pizzas',
       name: 'pizzas',
-      component: PizzaView
+      component: PizzaView,
+      meta: {s_Nav: true}
+    },
+    {
+      path: '/your_order',
+      name: 'pizza',
+      component: UserOrder
     },
     {
       path: '/pizzas/create',
@@ -33,14 +65,37 @@ const router = createRouter({
       component: PizzaCreate
     },
     {
+      path: '/pizzas/:pizzaId/edit',
+      name: 'pizzas_edit',
+      component: PizzaEdit
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login
     },
     {
+      path: '/staff/login',
+      name: 's_login',
+      component: S_Login,
+      meta: {s_Nav: true}
+    },
+    {
+      path: '/admin/login',
+      name: 'a_login',
+      component: A_Login,
+      meta: {a_Nav: true}
+    },
+    {
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/staff/register',
+      name: 's_register',
+      component: S_Register,
+      meta: {a_Nav: true}
     },
     {
       path: '/forgotPassword',

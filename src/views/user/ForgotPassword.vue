@@ -23,11 +23,9 @@
 
 <script setup>
 import axios from 'axios';
-import { useRouter } from 'vue-router';
 import Cookies from 'universal-cookie';
 import { ref } from 'vue';
 
-const router  = useRouter();
 const cookies = new Cookies();
 
 

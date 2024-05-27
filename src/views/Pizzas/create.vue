@@ -33,6 +33,11 @@
             </div>
 
             <div class="bg-gray-100 rounded-lg p-6">
+                <label for="price" class="block mb-2 text-gray-800 font-semibold">Price:</label>
+                <p></p>
+            </div>
+
+            <div class="bg-gray-100 rounded-lg p-6">
                 <div class="flex items-center mb-2">
                     <input class="form-checkbox rounded text-blue-500" type="checkbox" id="agreeCheck" required>
                     <label class="ml-2 text-gray-800" for="agreeCheck">Agree to terms and conditions</label>
@@ -64,26 +69,49 @@ const cookies = new Cookies();
                 pizza: {
                     name: '',
                     type: '',
-                    base: ''
+                    base: '',
+                    // price: 0
                 },
+
+                // priceUpdate: {
+                //     e_d: 50,
+                //     e_p: 20,
+                //     e_s: 80,
+                //     h_d: 100,
+                //     h_p: 110,
+                //     h_s: 120,
+                //     m_d: 130,
+                //     m_p: 140,
+                //     m_s: 150
+                // },
 
                 errors: ref([]),
                 
-                
             };
-   
 
-      
+            // const prizeUpdator = () => {
+                
+            //     if(data.pizza.type === 'European' && data.pizza.base === 'Double Sausage'){
+            //         data.pizza.price+= data.priceUpdate.e_d
+            //     }
+            //     const newPrice = () => {
+            //         return data.pizza.price;
+            //     }
+            // };
             
            const savePizza = async () => {
+            data.errors.value = ([]);
                 try {
                     await axios.post('/api/pizzas', data.pizza, {
                 headers:{
                     'X-XSRF-TOKEN' : data.csrfToken
                 }
                });
-                    router.push({ path: '/', query: { message: 'Thank you Customer, See you again!!!' } });
+                    router.push({ path: '/welcome', query: { message: 'Thank you Customer, See you again!!!' } });
                 } catch (error) {
+                    if(error.response.status == 401){
+                    router.push('/login');
+                    }
                     if(error.response.status === 422){
                         data.errors.value = error.response.data.errors
                     }
