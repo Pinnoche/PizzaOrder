@@ -34,8 +34,9 @@
     csrfToken: cookies.get('XSRF-TOKEN'),
    }
   
-   const getPizza = async() => { 
-                  try {
+   const getPizza = async () => { 
+             
+                try {
                     const res = await axios.get('/api/user/pizzas');
                     data.pizzas.value = res.data.pizzas;
                   } catch (error) {
@@ -45,7 +46,7 @@
                       console.error('Error fetching pizzas:', error)
                     }
                     
-                  }  
+                  }
                        
                     };
       
