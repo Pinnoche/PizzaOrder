@@ -69,13 +69,7 @@ import { ref } from 'vue';
     const toggleMenu = () => {
       isMenuOpen.value = !isMenuOpen.value;
     };
-    // const props = defineProps({
-    //   data: {
-    //     type: Object,
-    //     required: true
-    //   }
-    // })
-
+    
     const logOut = async() =>{
             await axios.post('/admin/logout');
             authStore.authAdmin = null;

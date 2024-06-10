@@ -3,7 +3,7 @@
                 <ul class=" flex-wrap [&>li]:text-center rounded-lg bg-blue-500 border border-gray-400 shadow-lg max-w-lg overflow-hidden text-lg">
                     <li class="rounded-t-lg hover:bg-blue-700 hover:shadow-2xl text-gray-300 cursor-pointer ">
                        <RouterLink to="/register">
-                           Onboard New Customers
+                           Onboard New Customer
                        </RouterLink>
                     </li>
                     <li @click="getUserList()" class="hover:bg-blue-700 hover:shadow-2xl text-gray-300 cursor-pointer ">

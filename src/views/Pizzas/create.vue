@@ -58,10 +58,12 @@
 import { useRouter } from 'vue-router';
 import Cookies from 'universal-cookie';
 import axios from 'axios'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
 
 const router = useRouter();
 const cookies = new Cookies();
+const authStore = useAuthStore();
 
       const data = {
                 csrfToken: cookies.get('XSRF-TOKEN'),
@@ -70,34 +72,12 @@ const cookies = new Cookies();
                     name: '',
                     type: '',
                     base: '',
-                    // price: 0
                 },
-
-                // priceUpdate: {
-                //     e_d: 50,
-                //     e_p: 20,
-                //     e_s: 80,
-                //     h_d: 100,
-                //     h_p: 110,
-                //     h_s: 120,
-                //     m_d: 130,
-                //     m_p: 140,
-                //     m_s: 150
-                // },
 
                 errors: ref([]),
                 
             };
 
-            // const prizeUpdator = () => {
-                
-            //     if(data.pizza.type === 'European' && data.pizza.base === 'Double Sausage'){
-            //         data.pizza.price+= data.priceUpdate.e_d
-            //     }
-            //     const newPrice = () => {
-            //         return data.pizza.price;
-            //     }
-            // };
             
            const savePizza = async () => {
             data.errors.value = ([]);
@@ -116,13 +96,17 @@ const cookies = new Cookies();
                         data.errors.value = error.response.data.errors
                     }
                 }   
-
-                data.pizza = {
-                        name: '',
-                        type: '',
-                        base: ''
-                    }
                     
                 };
+
+                onMounted( async () => {
+                    try {
+                        await authStore.getUser();
+                    } catch (error) {
+                        if(error.response && error.response.status == 401){
+                            router.push('/login');
+                        }
+                    }
+                })
     
 </script>
