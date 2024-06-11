@@ -35,7 +35,7 @@ import UserCommand from '@/components/UserCommand.vue';
 import UserList from '@/components/UserList.vue';
 import StaffCommand from '@/components/StaffCommand.vue';
 import StaffList from '@/components/StaffList.vue';
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
 import Cookies from 'universal-cookie';
@@ -54,12 +54,14 @@ const isStaffs = ref(true);
 
 const csrfToken = cookies.get('XSRF-TOKEN');
 
-onMounted( async () => {
-    await authStore.getAdmin();
+onBeforeMount( async () => {
+    await authStore.getAdmin()
 });
 
 const handleUserCommand = () => {
     if(isUser){
+        isUsers.value = true;
+        isStaffs.value = true;
         isStaff.value = true;
         isUser.value = !isUser.value;
     }
@@ -97,6 +99,8 @@ const staffs = ref([]);
 
 const handleStaffCommand = () => {
     if(isStaff){
+        isUsers.value = true;
+        isStaffs.value = true;
         isUser.value = true;
         isStaff.value = !isStaff.value;
     }

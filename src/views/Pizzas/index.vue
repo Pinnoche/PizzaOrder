@@ -18,7 +18,7 @@
 import PizzaCard from '@/components/PizzaCard.vue'
 import axios from 'axios';
 import { useRouter } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import Cookies from 'universal-cookie';
 import { format } from 'date-fns';
 
@@ -45,14 +45,14 @@ const router = useRouter();
                   
                 }  
                      
-                  };
+              };
     
 
   const formatCreatedAt = (date) => {
       return format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
     };
 
-  onMounted(async () => { 
+  onBeforeMount(async () => { 
        await getPizzas();
     });
 

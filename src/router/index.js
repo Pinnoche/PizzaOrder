@@ -72,24 +72,26 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: {home: true}
     },
     {
       path: '/staff/login',
       name: 's_login',
       component: S_Login,
-      meta: {s_Nav: true}
+      meta: {home: true}
     },
     {
       path: '/admin/login',
       name: 'a_login',
       component: A_Login,
-      meta: {a_Nav: true}
+      meta: {home: true}
     },
     {
       path: '/register',
       name: 'register',
-      component: Register
+      component: Register,
+      meta: {home: true}
     },
     {
       path: '/staff/register',
