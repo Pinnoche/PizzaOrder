@@ -39,19 +39,16 @@ import { onBeforeMount, onMounted, ref } from 'vue';
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
 import Cookies from 'universal-cookie';
-// import { useRouter } from 'vue-router';
+
 
 const authStore = useAuthStore();
-// const router = useRouter();
 const cookies = new Cookies();
-const showUser = ref(null);
 const user = ref(null);
 const staff = ref(null);
 const isUser = ref(true);
 const isStaff = ref(true);
 const isUsers = ref(true);
 const isStaffs = ref(true);
-
 const csrfToken = cookies.get('XSRF-TOKEN');
 
 onBeforeMount( async () => {
