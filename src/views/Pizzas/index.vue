@@ -3,7 +3,7 @@
       <h1 class="text-xl md:text-3xl font-semibold mb-8 text-center">Pizza Orders</h1>
      
       <div v-if="data.pizzas.value && data.pizzas.value.length > 0">
-          <PizzaCard :data = "data" :formatCreatedAt = "formatCreatedAt" :deleteOrder = "deleteOrder" />
+          <PizzaCard :data = "data" :deleteOrder = "deleteOrder" />
       </div>
       
       <div v-else>
@@ -20,7 +20,7 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { onBeforeMount, ref } from 'vue';
 import Cookies from 'universal-cookie';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 
 
 const cookies = new Cookies();
@@ -48,9 +48,9 @@ const router = useRouter();
               };
     
 
-  const formatCreatedAt = (date) => {
-      return format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
-    };
+  // const formatCreatedAt = (date) => {
+  //     return format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
+  //   };
 
   onBeforeMount(async () => { 
        await getPizzas();

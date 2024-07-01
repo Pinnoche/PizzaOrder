@@ -3,7 +3,7 @@
         <h2 class="text-xl font-semibold mb-2"><span class="font-semibold">Customer:  </span>{{ pizza.name }}</h2>
         <p class="text-gray-700 mb-2"><span class="font-semibold">Type:</span> {{ pizza.type }}</p>
         <p class="text-gray-700 mb-2"><span class="font-semibold">Base:</span> {{ pizza.base }}</p>
-        <p class="text-gray-700"><span class="font-semibold">Ordered at:</span> {{ formatCreatedAt(pizza.created_at)}}</p>
+        <p class="text-gray-700"><span class="font-semibold">Ordered at:</span> {{ pizza.created_at }}</p>
         <button @click="deleteOrder(pizza.id)" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg mt-4">Complete Order</button>
     </div>
 </template>
