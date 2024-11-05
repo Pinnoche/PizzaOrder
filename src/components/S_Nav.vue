@@ -42,7 +42,6 @@
             <RouterLink to="/pizzas" class="hover:bg-gray-700 block px-3 py-2 rounded-md">Pizzas</RouterLink>
             <section v-if="!authStore.staff" class="cursor-pointer">
               <RouterLink to="/staff/login" class=" hover:bg-gray-700 block px-3 py-2 rounded-md">Login</RouterLink>
-              <!-- <RouterLink to="/register" class=" hover:bg-gray-700 block px-3 py-2 rounded-md">Register</RouterLink> -->
             </section>
             <section v-else class="cursor-pointer">
               <a class="hover:bg-gray-700 block px-3 py-2 rounded-md" @click="logOut">Logout</a>
@@ -55,13 +54,12 @@
   
  
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth';
-// import { defineProps } from 'vue';
 import axios from 'axios';
 import { ref } from 'vue';
 
-  
+    const router = useRouter();
     const isMenuOpen = ref(false);
     const authStore = useAuthStore();
 
@@ -69,18 +67,12 @@ import { ref } from 'vue';
     const toggleMenu = () => {
       isMenuOpen.value = !isMenuOpen.value;
     };
-    // const props = defineProps({
-    //   data: {
-    //     type: Object,
-    //     required: true
-    //   }
-    // })
 
     const logOut = async() =>{
             await axios.post('/staff/logout' 
             );
             authStore.authStaff = null;
-            window.location.reload();
+            router.push('/staff');
         };
 
 </script>

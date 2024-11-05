@@ -8,7 +8,9 @@
                 <p class="text-gray-700 mb-2"><span class="font-semibold">Type:</span> {{ pizza.type }}</p>
                 <p class="text-gray-700 mb-2"><span class="font-semibold">Base:</span> {{ pizza.base }}</p>
                 <p class="text-gray-700"><span class="font-semibold">Ordered at:</span> {{ pizza.created_at }}</p>
-                <button @click="showEditOrder(pizza.id)" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg mt-4">Edit</button>
+                <div class="flex justify-end">
+                  <button @click="showEditOrder(pizza.id)" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg mt-4">Edit</button>
+                </div>
             </div>
         </div>
         
@@ -23,7 +25,6 @@
   import { useRouter } from 'vue-router';
   import { onMounted, ref } from 'vue';
   import Cookies from 'universal-cookie';
-  // import { format } from 'date-fns';
 
   const cookies = new Cookies();
   const router = useRouter();
@@ -49,11 +50,6 @@
                   }
                        
                     };
-      
-  
-    // const formatCreatedAt = (date) => {
-    //     return format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
-    //   };
   
     onMounted(async () => { 
         await getPizza();

@@ -22,7 +22,7 @@
             <UserCommand ref="user" :class="{ 'hidden' : isUser }" :getUserList = 'getUserList' />
             <UserList :class="{ 'hidden' : isUsers }" :users="users" :handleUsersList="handleUsersList" :removeUser="removeUser" />
             <StaffCommand ref="staff" :class="{ 'hidden' : isStaff }" :getStaffList = 'getStaffList' />
-            <StaffList :class="{ 'hidden' : isStaffs }" :staffs="staffs" :handleStaffsList="handleStaffsList" :removeUser="removeStaff" />
+            <StaffList :class="{ 'hidden' : isStaffs }" :staffs="staffs" :handleStaffsList="handleStaffsList" :removeStaff="removeStaff" />
         </div>
 
     </div>

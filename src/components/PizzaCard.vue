@@ -4,7 +4,9 @@
         <p class="text-gray-700 mb-2"><span class="font-semibold">Type:</span> {{ pizza.type }}</p>
         <p class="text-gray-700 mb-2"><span class="font-semibold">Base:</span> {{ pizza.base }}</p>
         <p class="text-gray-700"><span class="font-semibold">Ordered at:</span> {{ pizza.created_at }}</p>
-        <button @click="deleteOrder(pizza.id)" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg mt-4">Complete Order</button>
+        <div class="flex justify-end">
+            <button @click="deleteOrder(pizza.id)" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg mt-4">Complete Order</button>
+        </div>
     </div>
 </template>
 
@@ -14,10 +16,6 @@ import { defineProps } from 'vue';
 const props = defineProps({
     data:{
         type: Object,
-        required: true
-    },
-    formatCreatedAt:{
-        type: Function,
         required: true
     },
     deleteOrder: {

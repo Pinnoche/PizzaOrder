@@ -55,13 +55,13 @@
 
 
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth';
 // import { defineProps } from 'vue';
 import axios from 'axios';
 import { ref } from 'vue';
 
-  
+    const router = useRouter();
     const isMenuOpen = ref(false);
     const authStore = useAuthStore();
 
@@ -73,7 +73,7 @@ import { ref } from 'vue';
     const logOut = async() =>{
             await axios.post('/admin/logout');
             authStore.authAdmin = null;
-            window.location.reload();
+            router.push('/');
         };
 
 </script>

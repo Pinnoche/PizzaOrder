@@ -58,7 +58,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { useAuthStore } from '../stores/auth';
-// import { defineProps } from 'vue';
 import axios from 'axios';
 import { ref } from 'vue';
 
@@ -70,12 +69,6 @@ import { ref } from 'vue';
     const toggleMenu = () => {
       isMenuOpen.value = !isMenuOpen.value;
     };
-    // const props = defineProps({
-    //   data: {
-    //     type: Object,
-    //     required: true
-    //   }
-    // })
 
     const logOut = async() =>{
             await axios.post('/logout' 
